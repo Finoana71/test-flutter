@@ -1,6 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gestiondossier/screens/home.dart';
+import 'package:gestiondossier/services/sqlite_service.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-void main() => runApp(MyApp());
+main() {
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
+  // Initialisez la fabrique de base de données FFI
+//   if (kIsWeb) {
+//     // Change default factory on the web
+//     databaseFactory = databaseFactoryFfiWeb;
+// // open the database
+//   } else {
+//   }
+
+  // databaseFactory = databaseFactoryFfi;
+  // databaseFactory = databaseFactoryFfi;
+
+  // Reste de votre code
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,27 +38,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
-      ),
+      home: HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
