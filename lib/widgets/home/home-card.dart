@@ -3,6 +3,7 @@ import 'package:gestiondossier/screens/arrivee.dart';
 import 'package:gestiondossier/screens/prise.dart';
 import 'package:gestiondossier/screens/recherche.dart';
 import 'package:gestiondossier/screens/retour.dart';
+import 'package:gestiondossier/services/database.dart';
 import 'package:gestiondossier/widgets/home/home-button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -98,6 +99,7 @@ class HomeCard extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.cloud_download),
                   onPressed: () {
+                    DatabaseService.exportDatabase();
                     // Ajoutez la logique nécessaire pour le bouton ici
                   },
                 ),

@@ -5,8 +5,8 @@ import 'package:gestiondossier/services/sqlite_service.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 main() {
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
+  // sqfliteFfiInit();
+  // databaseFactory = databaseFactoryFfi;
 
   // Initialisez la fabrique de base de données FFI
 //   if (kIsWeb) {
