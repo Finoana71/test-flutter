@@ -3,7 +3,7 @@ import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/screens/detail.dart';
 import 'package:gestiondossier/screens/formPrise.dart';
 import 'package:gestiondossier/screens/formRetour.dart';
-import 'package:gestiondossier/services/dossier.dart';
+import 'package:gestiondossier/services/dossier_service.dart';
 
 class ListCard extends StatelessWidget {
   final Dossier dossier;

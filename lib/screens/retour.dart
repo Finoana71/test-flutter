@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/services/dossier.dart';
+import 'package:gestiondossier/services/dossier_service.dart';
 import 'package:gestiondossier/widgets/listCard.dart';
 import 'package:gestiondossier/widgets/search-bar.dart';
 
@@ -23,7 +24,7 @@ class _RetourPageState extends State<RetourPage> {
   }
 
   Future<void> _loadDossiers() async {
-    List<Dossier> dossiers = await dossierService.getListDossiers();
+    List<Dossier> dossiers = await dossierService.readAllDossiers();
     // await dossierService.getDossiersByStatuts(statutsRecherches);
     setState(() {
       listeDossiers = dossiers;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/services/dossier.dart';
+import 'package:gestiondossier/services/dossier_service.dart';
 import 'package:gestiondossier/widgets/historique/listHistorique.dart';
 
 class DetailDossierPage extends StatelessWidget {

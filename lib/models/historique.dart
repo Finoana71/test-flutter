@@ -3,20 +3,20 @@ import 'package:gestiondossier/models/dossier.dart';
 class Historique {
   int? id = 1;
   int? idDossier = 1;
-  final String utilisateur;
-  final String sigle;
-  final DateTime date;
-  final Statut statut;
-  final String observation;
+  String? utilisateur;
+  String? sigle;
+  DateTime? date;
+  Statut? statut;
+  String? observation;
 
   Historique({
     this.id,
-    required this.idDossier,
-    required this.utilisateur,
-    required this.sigle,
-    required this.date,
-    required this.statut,
-    required this.observation,
+    this.idDossier,
+    this.utilisateur,
+    this.sigle,
+    this.date,
+    this.statut,
+    this.observation,
   });
 
   String getDescription() {
@@ -31,7 +31,7 @@ class Historique {
       'idDossier': idDossier,
       'utilisateur': utilisateur,
       'sigle': sigle,
-      'date': date.millisecondsSinceEpoch,
+      'date': date?.millisecondsSinceEpoch,
       'observation': observation,
       'statut': statut,
     };

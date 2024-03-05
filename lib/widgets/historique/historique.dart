@@ -25,7 +25,7 @@ class HistoriqueCard extends StatelessWidget {
                 children: [
                   TextSpan(
                     text:
-                        "${historique.date.toLocal().toString().split(' ')[0]}",
+                        "${historique.date?.toLocal().toString().split(' ')[0]}",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.normal,

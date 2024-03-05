@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/screens/recherche.dart';
 import 'package:gestiondossier/services/dossier.dart';
+import 'package:gestiondossier/services/dossier_service.dart';
 import 'package:gestiondossier/widgets/my-button.dart';
+import 'package:get/get.dart';
 
 class ArriveePage extends StatefulWidget {
   @override
@@ -131,9 +133,9 @@ class _ArriveePageState extends State<ArriveePage> {
           observation: observation,
           statut: Statut.Arrive);
       dossierService
-          .addDossier(dossier)
+          .saveDossier(dossier)
           .then((value) => null)
-          .catchError((err) => {print(err)});
+          .catchError((err) => {Get.snackbar('Error', 'Erreur. $err')});
 
       // Ajoutez votre logique d'enregistrement ici
       Navigator.push(

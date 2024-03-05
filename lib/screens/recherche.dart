@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/helpers/dossierDatabase.dart';
 import 'package:gestiondossier/models/dossier.dart';
-import 'package:gestiondossier/services/dossier.dart';
+import 'package:gestiondossier/services/dossier_service.dart';
 import 'package:gestiondossier/widgets/listCard.dart';
 import 'package:gestiondossier/widgets/search-bar.dart';
+import 'package:get/get.dart';
 
 class RecherchePage extends StatefulWidget {
   @override
@@ -30,11 +31,11 @@ class _RecherchePageState extends State<RecherchePage> {
   }
 
   refreshDossiers() {
-    dossierService.getListDossiers().then((value) {
+    dossierService.readAllDossiers().then((value) {
       setState(() {
         listeDossiers = value;
       });
-    });
+    }).catchError((err) => {Get.snackbar('Error', 'Erreur. $err')});
   }
   // Future<void> _loadDossiers() async {
   //   List<Dossier> dossiers = await dossierService.getListDossiers();

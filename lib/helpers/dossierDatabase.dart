@@ -67,8 +67,8 @@ class DossierDatabase {
 
   Future<Dossier> createDossier(Dossier dossier) async {
     final db = await instance.database;
-    final id = await db.insert(DossierFields.tableName, dossier.toJson());
-    return dossier.copy(id: id);
+    // final id = await db.insert(DossierFields.tableName, dossier.toJson());
+    return dossier.copy(id: 1);
   }
 
   Future<Dossier> readDossier(int id) async {

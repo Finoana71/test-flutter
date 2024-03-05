@@ -10,7 +10,7 @@ class DatabaseService {
     try {
       // Obtenez le chemin de la base de données actuelle
       String databasesPath = await getDatabasesPath();
-      String path = join(databasesPath, 'nom_de_votre_base_de_donnees.db');
+      String path = join(databasesPath, 'db_dossiers');
 
       // Laissez l'utilisateur choisir l'emplacement et le nom du fichier
       FilePickerResult? result = await FilePicker.platform.pickFiles(
