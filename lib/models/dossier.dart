@@ -32,7 +32,7 @@ class Dossier {
       'sigle': sigle,
       'date': date?.millisecondsSinceEpoch,
       'observation': observation,
-      'statut': statut,
+      'statut': statut.toString(),
     };
   }
 

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/historique.dart';
 
+const snackBar = SnackBar(
+  content: Text('Yay! A SnackBar!'),
+);
+
 class HistoriqueCard extends StatelessWidget {
   final Historique historique;
 

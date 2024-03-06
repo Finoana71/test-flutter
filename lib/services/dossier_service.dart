@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gestiondossier/helpers/dossierDatabase.dart';
 import 'package:gestiondossier/models/dossier.dart';
+import 'package:gestiondossier/models/historique.dart';
 import 'package:gestiondossier/repositories/dossier_repository.dart';
 
 class DossierService {
@@ -11,7 +13,10 @@ class DossierService {
 
   //Save Dossier
   Future<int> saveDossier(Dossier dossier) async {
-    return (await _repository.insertData(dossier.toMap()))!;
+    int dossierId = (await _repository.insertData(dossier.toMap(), null))!;
+    Historique historique = dossier.generateFirstHistory(dossierId);
+    (await _repository.insertData(historique.toMap(), tableHistorique))!;
+    return dossierId;
   }
 
   //Read All Dossiers

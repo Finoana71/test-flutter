@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/screens/arrivee.dart';
 import 'package:gestiondossier/screens/prise.dart';
@@ -6,6 +8,8 @@ import 'package:gestiondossier/screens/retour.dart';
 import 'package:gestiondossier/services/database_service.dart';
 import 'package:gestiondossier/widgets/home/home-button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class HomeCard extends StatelessWidget {
   @override
@@ -98,8 +102,8 @@ class HomeCard extends StatelessWidget {
                 // Bouton "Export" (Download)
                 IconButton(
                   icon: Icon(Icons.cloud_download),
-                  onPressed: () {
-                    DatabaseService.exportDatabase();
+                  onPressed: () async {
+                    await DatabaseService.exportDatabase(context);
                     // Ajoutez la logique nécessaire pour le bouton ici
                   },
                 ),

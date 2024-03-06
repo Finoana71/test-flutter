@@ -134,8 +134,18 @@ class _ArriveePageState extends State<ArriveePage> {
           statut: Statut.Arrive);
       dossierService
           .saveDossier(dossier)
-          .then((value) => null)
-          .catchError((err) => {Get.snackbar('Error', 'Erreur. $err')});
+          .then((value) => {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: new Text("Arrivé"),
+                  backgroundColor: Colors.greenAccent,
+                ))
+              })
+          .catchError((err) => {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: new Text('Erreur, $err'),
+                    backgroundColor: Colors.redAccent,
+                    duration: const Duration(milliseconds: 1500000)))
+              });
 
       // Ajoutez votre logique d'enregistrement ici
       Navigator.push(

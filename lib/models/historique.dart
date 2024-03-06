@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:gestiondossier/models/dossier.dart';
 
 class Historique {
@@ -48,4 +50,6 @@ class Historique {
       statut: map['statut'],
     );
   }
+
+  String toJson() => json.encode(toMap());
 }

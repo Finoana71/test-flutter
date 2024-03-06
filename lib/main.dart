@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/screens/home.dart';
 import 'package:gestiondossier/services/sqlite_service.dart';
+import 'package:get/get.dart';
 // import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 main() {
@@ -18,7 +19,6 @@ main() {
 
   // databaseFactory = databaseFactoryFfi;
   // databaseFactory = databaseFactoryFfi;
-
   // Reste de votre code
   runApp(MyApp());
 }

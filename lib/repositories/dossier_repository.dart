@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 class DossierRepository {
   late DatabaseConnection _databaseConnection;
 
-  dossierRepository() {
+  DossierRepository() {
     _databaseConnection = DatabaseConnection();
   }
 
@@ -21,7 +21,8 @@ class DossierRepository {
     }
   }
 
-  Future<int?> insertData(Map<String, dynamic> data) async {
+  Future<int?> insertData(Map<String, dynamic> data, String? table) async {
+    if (table == null) table = this.table;
     var connection = await database;
     return await connection?.insert(
       table,
