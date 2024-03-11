@@ -14,7 +14,7 @@ class DossierService {
   //Save Dossier
   Future<int> saveDossier(Dossier dossier) async {
     var dossiers = await _repository.readDataByNumero(dossier.numero!);
-    if (dossiers!.isEmpty) {
+    if (dossiers!.isNotEmpty) {
       throw new Exception("Un dossier comportant ce numéro existe déjà");
     }
     int dossierId = (await _repository.insertData(dossier.toMap(), null))!;

@@ -52,7 +52,7 @@ class DossierRepository {
   Future<List<Map<String, dynamic>>?> readDataByNumero(String numero) async {
     var connection = await database;
     return await connection
-        ?.query(table, where: 'id = numero', whereArgs: [numero]);
+        ?.query(table, where: 'numero = ?', whereArgs: [numero]);
   }
 
   Future<int?> updateData(Map<String, dynamic> data) async {
