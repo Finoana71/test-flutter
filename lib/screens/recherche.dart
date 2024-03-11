@@ -17,7 +17,7 @@ class _RecherchePageState extends State<RecherchePage> {
 
   List<Dossier> listeDossiers = [];
   SnackBarHelper snackBarHelper = new SnackBarHelper();
-
+  String query = "";
   @override
   void initState() {
     super.initState();
@@ -32,14 +32,20 @@ class _RecherchePageState extends State<RecherchePage> {
     super.dispose();
   }
 
+  void filterList(String query) {
+    this.query = query;
+    refreshDossiers();
+  }
+
   refreshDossiers() {
-    dossierService.readAllDossiers().then((value) {
-      print("refresh dossiers 2");
-      listeDossiers = value;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: new Text('Success'),
-          backgroundColor: Colors.green,
-          duration: const Duration(milliseconds: 1500000)));
+    dossierService.readAllDossiers(query).then((value) {
+      setState(() {
+        listeDossiers = value;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: new Text('Success'),
+            backgroundColor: Colors.green,
+            duration: const Duration(milliseconds: 1500000)));
+      });
     }).catchError((err) => {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: new Text('Erreur, $err'),
@@ -68,7 +74,7 @@ class _RecherchePageState extends State<RecherchePage> {
           SizedBox(
             height: 6.0,
           ),
-          MySearchBar(),
+          MySearchBar(onSearch: filterList),
           SizedBox(
             height: 16.0,
           ),

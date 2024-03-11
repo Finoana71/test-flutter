@@ -15,7 +15,7 @@ class _RetourPageState extends State<RetourPage> {
   List<Statut> statutsRecherches = [Statut.Pris];
   String title = "Retour";
   List<Dossier> listeDossiers = [];
-
+  String query = "";
   @override
   void initState() {
     super.initState();
@@ -24,11 +24,16 @@ class _RetourPageState extends State<RetourPage> {
   }
 
   Future<void> _loadDossiers() async {
-    List<Dossier> dossiers = await dossierService.readAllDossiers();
+    List<Dossier> dossiers = await dossierService.readAllDossiers(query);
     // await dossierService.getDossiersByStatuts(statutsRecherches);
     setState(() {
       listeDossiers = dossiers;
     });
+  }
+
+  void filterList(String query) {
+    this.query = query;
+    _loadDossiers();
   }
 
   @override
@@ -44,7 +49,7 @@ class _RetourPageState extends State<RetourPage> {
           SizedBox(
             height: 6.0,
           ),
-          MySearchBar(),
+          MySearchBar(onSearch: filterList),
           SizedBox(
             height: 16.0,
           ),
