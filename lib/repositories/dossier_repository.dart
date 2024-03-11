@@ -31,15 +31,28 @@ class DossierRepository {
     );
   }
 
-  Future<List<Map<String, dynamic>>?> readData() async {
+  Future<List<Map<String, dynamic>>?> readData(
+      String search, String? where, List? whereArgs) async {
     var connection = await database;
-    return await connection?.query(table);
+    return await connection?.query(table, where: where, whereArgs: whereArgs);
+  }
+
+  Future<List<Map<String, dynamic>>?> readAllData(
+      String table, String where, List whereArgs) async {
+    var connection = await database;
+    return await connection?.query(table, where: where, whereArgs: whereArgs);
   }
 
   Future<List<Map<String, dynamic>>?> readDataById(int dossierId) async {
     var connection = await database;
     return await connection
         ?.query(table, where: 'id = ?', whereArgs: [dossierId]);
+  }
+
+  Future<List<Map<String, dynamic>>?> readDataByNumero(String numero) async {
+    var connection = await database;
+    return await connection
+        ?.query(table, where: 'id = numero', whereArgs: [numero]);
   }
 
   Future<int?> updateData(Map<String, dynamic> data) async {

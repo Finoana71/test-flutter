@@ -13,6 +13,10 @@ class DossierService {
 
   //Save Dossier
   Future<int> saveDossier(Dossier dossier) async {
+    var dossiers = await _repository.readDataByNumero(dossier.numero!);
+    if (dossiers!.isEmpty) {
+      throw new Exception("Un dossier comportant ce numéro existe déjà");
+    }
     int dossierId = (await _repository.insertData(dossier.toMap(), null))!;
     Historique historique = dossier.generateFirstHistory(dossierId);
     (await _repository.insertData(historique.toMap(), tableHistorique))!;
@@ -20,8 +24,23 @@ class DossierService {
   }
 
   //Read All Dossiers
-  Future<List<Dossier>> readAllDossiers() async {
-    var data = await _repository.readData();
+  Future<List<Dossier>> readAllDossiers(String search) async {
+    search = '%$search%';
+    const where = 'numero LIKE ?';
+    List args = [search];
+    var data = await _repository.readData(search, where, args);
+    return data!.map((e) => Dossier.fromMap(e)).toList();
+  }
+
+  //Read All Dossiers
+  Future<List<Dossier>> readAllDossiersStatut(
+      String search, List<Statut> statuts) async {
+    search = '%$search%';
+    Iterable<int> statutNumbers = statuts.map((e) => e.index);
+    String where =
+        'statut IN (${statutNumbers.map((statut) => '?').join(', ')}) AND numero LIKE ?';
+    List args = [...statutNumbers, search];
+    var data = await _repository.readData(search, where, args);
     return data!.map((e) => Dossier.fromMap(e)).toList();
   }
 
@@ -32,6 +51,13 @@ class DossierService {
 
   Future<int> deleteDossier(int dossierId) async {
     return (await _repository.deleteDataById(dossierId))!;
+  }
+
+  Future<List<Historique>> getHistoriqueDossiers(int idDossier) async {
+    String where = "idDossier = ?";
+    List args = [idDossier];
+    var data = await _repository.readAllData(tableHistorique, where, args);
+    return data!.map((e) => Historique.fromMap(e)).toList();
   }
 
   // Fonction pour obtenir la couleur en fonction du statut
