@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/helpers/dossierDatabase.dart';
+import 'package:gestiondossier/helpers/snackbar_helper.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/services/dossier_service.dart';
 import 'package:gestiondossier/widgets/listCard.dart';
@@ -15,6 +16,7 @@ class _RecherchePageState extends State<RecherchePage> {
   DossierService dossierService = DossierService();
 
   List<Dossier> listeDossiers = [];
+  SnackBarHelper snackBarHelper = new SnackBarHelper();
 
   @override
   void initState() {
@@ -32,10 +34,18 @@ class _RecherchePageState extends State<RecherchePage> {
 
   refreshDossiers() {
     dossierService.readAllDossiers().then((value) {
-      setState(() {
-        listeDossiers = value;
-      });
-    }).catchError((err) => {Get.snackbar('Error', 'Erreur. $err')});
+      print("refresh dossiers 2");
+      listeDossiers = value;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: new Text('Success'),
+          backgroundColor: Colors.green,
+          duration: const Duration(milliseconds: 1500000)));
+    }).catchError((err) => {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: new Text('Erreur, $err'),
+              backgroundColor: Colors.redAccent,
+              duration: const Duration(milliseconds: 1500000)))
+        });
   }
   // Future<void> _loadDossiers() async {
   //   List<Dossier> dossiers = await dossierService.getListDossiers();

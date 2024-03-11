@@ -32,7 +32,7 @@ class Dossier {
       'sigle': sigle,
       'date': date?.millisecondsSinceEpoch,
       'observation': observation,
-      'statut': statut.toString(),
+      'statut': statut?.index,
     };
   }
 
@@ -69,7 +69,7 @@ class Dossier {
       sigle: map['sigle'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       observation: map['observation'],
-      statut: map['statut'],
+      statut: Statut.values[int.parse(map['statut'])],
     );
   }
 

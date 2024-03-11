@@ -35,7 +35,7 @@ class Historique {
       'sigle': sigle,
       'date': date?.millisecondsSinceEpoch,
       'observation': observation,
-      'statut': statut,
+      'statut': statut?.index,
     };
   }
 
@@ -47,7 +47,7 @@ class Historique {
       sigle: map['sigle'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       observation: map['observation'],
-      statut: map['statut'],
+      statut: Statut.values[int.parse(map['statut'])],
     );
   }
 

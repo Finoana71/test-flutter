@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestiondossier/helpers/snackbar_helper.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/screens/recherche.dart';
 import 'package:gestiondossier/services/dossier.dart';
@@ -20,6 +21,8 @@ class _ArriveePageState extends State<ArriveePage> {
 
   DateTime _selectedDate = DateTime.now();
   DossierService dossierService = new DossierService();
+  SnackBarHelper snackBarHelper = new SnackBarHelper();
+  BuildContext? context2;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -37,6 +40,7 @@ class _ArriveePageState extends State<ArriveePage> {
 
   @override
   Widget build(BuildContext context) {
+    context2 = context;
     return Scaffold(
       appBar: AppBar(
         title: Text('Arrivee'),
@@ -124,7 +128,6 @@ class _ArriveePageState extends State<ArriveePage> {
       String sigle = _sigleController.text;
       String numero = _numeroController.text;
       String observation = _observationController.text;
-
       Dossier dossier = Dossier(
           numero: numero,
           utilisateur: utilisateur,
@@ -132,27 +135,34 @@ class _ArriveePageState extends State<ArriveePage> {
           date: _selectedDate,
           observation: observation,
           statut: Statut.Arrive);
-      dossierService
-          .saveDossier(dossier)
-          .then((value) => {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: new Text("Arrivé"),
-                  backgroundColor: Colors.greenAccent,
-                ))
-              })
-          .catchError((err) => {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: new Text('Erreur, $err'),
-                    backgroundColor: Colors.redAccent,
-                    duration: const Duration(milliseconds: 1500000)))
-              });
-
-      // Ajoutez votre logique d'enregistrement ici
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => new RecherchePage()),
-      );
-      // Vous pouvez également rediriger vers une autre page ou effectuer une autre action
+      // dossierService.saveDossier(dossier).then(redirect).catchError(onError);
+      dossierService.saveDossier(dossier).then(onSuccess).catchError(onError
+          // (err) => {
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //     content: new Text('Erreur, $err'),
+          //     backgroundColor: Colors.redAccent,
+          //     duration: const Duration(milliseconds: 1500000)))
+          // }
+          );
     }
+  }
+
+  onError(err) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: new Text('Erreur, $err'),
+        backgroundColor: Colors.redAccent,
+        duration: const Duration(milliseconds: 1500000)));
+  }
+
+  onSuccess(value) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: new Text("Arrivé"),
+      backgroundColor: Colors.green,
+    ));
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => new RecherchePage()),
+    );
   }
 }
