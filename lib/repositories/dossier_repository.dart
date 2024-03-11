@@ -37,6 +37,12 @@ class DossierRepository {
     return await connection?.query(table, where: where, whereArgs: whereArgs);
   }
 
+  Future<List<Map<String, dynamic>>?> readAllData(
+      String table, String where, List whereArgs) async {
+    var connection = await database;
+    return await connection?.query(table, where: where, whereArgs: whereArgs);
+  }
+
   Future<List<Map<String, dynamic>>?> readDataById(int dossierId) async {
     var connection = await database;
     return await connection

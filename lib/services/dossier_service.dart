@@ -53,6 +53,13 @@ class DossierService {
     return (await _repository.deleteDataById(dossierId))!;
   }
 
+  Future<List<Historique>> getHistoriqueDossiers(int idDossier) async {
+    String where = "idDossier = ?";
+    List args = [idDossier];
+    var data = await _repository.readAllData(tableHistorique, where, args);
+    return data!.map((e) => Historique.fromMap(e)).toList();
+  }
+
   // Fonction pour obtenir la couleur en fonction du statut
   Color getColorForStatut(Statut? statut) {
     switch (statut) {
