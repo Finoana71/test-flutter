@@ -32,6 +32,18 @@ class DossierService {
     return data!.map((e) => Dossier.fromMap(e)).toList();
   }
 
+  //Read All Dossiers
+  Future<List<Dossier>> readAllDossiersStatut(
+      String search, List<Statut> statuts) async {
+    search = '%$search%';
+    Iterable<int> statutNumbers = statuts.map((e) => e.index);
+    String where =
+        'statut IN (${statutNumbers.map((statut) => '?').join(', ')}) AND numero LIKE ?';
+    List args = [...statutNumbers, search];
+    var data = await _repository.readData(search, where, args);
+    return data!.map((e) => Dossier.fromMap(e)).toList();
+  }
+
   //Edit Dossier
   Future<int> updateDossier(Dossier dossier) async {
     return (await _repository.updateData(dossier.toMap()))!;

@@ -24,7 +24,8 @@ class _RetourPageState extends State<RetourPage> {
   }
 
   Future<void> _loadDossiers() async {
-    List<Dossier> dossiers = await dossierService.readAllDossiers(query);
+    List<Dossier> dossiers =
+        await dossierService.readAllDossiersStatut(query, statutsRecherches);
     // await dossierService.getDossiersByStatuts(statutsRecherches);
     setState(() {
       listeDossiers = dossiers;
