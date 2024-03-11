@@ -3,7 +3,6 @@ import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/models/historique.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 final String tableDossier = 'dossiers';
 final String tableHistorique = 'historiques';

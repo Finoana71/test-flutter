@@ -37,13 +37,13 @@ class DatabaseConnection {
     await db.execute('''
           CREATE TABLE $tableHistorique (
             id INTEGER PRIMARY KEY,
-            dossierId INTEGER,
+            idDossier INTEGER,
             utilisateur TEXT,
             sigle TEXT,
             date INTEGER,
             observation TEXT,
             statut TEXT,
-            FOREIGN KEY (dossierId) REFERENCES $tableDossier(id)
+            FOREIGN KEY (idDossier) REFERENCES $tableDossier(id)
           )
         ''');
   }

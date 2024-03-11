@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestiondossier/helpers/snackbar_helper.dart';
 
 class HomeButton extends StatelessWidget {
   final Color color;
@@ -29,6 +30,10 @@ class HomeButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: new Text(text),
+        //     backgroundColor: Colors.greenAccent,
+        //     duration: const Duration(milliseconds: 1500000)));
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => pageInstance),
