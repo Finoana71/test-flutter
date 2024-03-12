@@ -24,20 +24,14 @@ class _DetailDossierPageState extends State<DetailDossierPage> {
     _fetchHistoriqueData();
   }
 
-  Future<void> _fetchHistoriqueData() async {
-    try {
-      // Récupérer l'historique du dossier en utilisant la méthode de dossierService
-      historiques =
-          await widget.dossierService.getHistoriqueDossiers(widget.dossier.id!);
-
-      // Rafraîchir l'interface utilisateur
-      if (mounted) {
-        setState(() {});
-      }
-    } catch (e) {
-      print('Erreur lors de la récupération de l\'historique : $e');
-      // Gérer l'erreur selon vos besoins
-    }
+  void _fetchHistoriqueData() {
+    widget.dossierService
+        .getHistoriqueDossiers(widget.dossier.id!)
+        .then((value) => {
+              setState(() {
+                historiques = value;
+              })
+            });
   }
 
   @override

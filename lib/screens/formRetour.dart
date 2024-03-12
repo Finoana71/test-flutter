@@ -126,18 +126,11 @@ class _FormRetourPageState extends State<FormRetourPage> {
       // Accédez au dossier via l'objet widget
       Dossier dossier = widget.dossier;
 
-      // Créez l'historique
-      Historique historique = Historique(
-          utilisateur: utilisateur,
-          sigle: sigle,
-          idDossier: dossier.id,
-          date: _selectedDate,
-          statut: statut,
-          observation: observation);
-
-      dossier.historiques.add(historique);
-      dossier.statut = statut;
-      navigate();
+      dossierService
+          .updateStatutDossier(
+              dossier, statut, utilisateur, sigle, observation, _selectedDate)
+          .then(onSuccess)
+          .catchError(onError);
     }
   }
 
@@ -146,5 +139,27 @@ class _FormRetourPageState extends State<FormRetourPage> {
       context,
       MaterialPageRoute(builder: (context) => new RecherchePage()),
     ); // Vous pouvez également rediriger vers une autre page ou effectuer une autre action
+  }
+
+  onError(err) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: new Text('Erreur, $err'),
+        backgroundColor: Colors.redAccent,
+        duration: const Duration(milliseconds: 2000)));
+  }
+
+  onSuccess(value) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: new Text("Dossier rendu"),
+      backgroundColor: Colors.green,
+    ));
+    clear();
+    navigate();
+  }
+
+  clear() {
+    _utilisateurController.text = "";
+    _sigleController.text = "";
+    _observationController.text = "";
   }
 }

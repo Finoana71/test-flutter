@@ -114,4 +114,15 @@ class Dossier {
         statut: statut,
         observation: observation);
   }
+
+  Historique generateHistory(String utilisateur, String sigle,
+      String observation, DateTime date, Statut statut) {
+    return new Historique(
+        id: this.id,
+        utilisateur: utilisateur,
+        sigle: sigle,
+        date: date,
+        statut: statut,
+        observation: observation);
+  }
 }

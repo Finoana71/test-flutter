@@ -19,8 +19,28 @@ class DossierService {
     }
     int dossierId = (await _repository.insertData(dossier.toMap(), null))!;
     Historique historique = dossier.generateFirstHistory(dossierId);
-    (await _repository.insertData(historique.toMap(), tableHistorique))!;
+    await saveHistorique(historique);
     return dossierId;
+  }
+
+  Future<void> saveHistorique(Historique historique) async {
+    (await _repository.insertData(historique.toMap(), tableHistorique))!;
+  }
+
+  // Mise à jour statut dossier avec historique
+  Future<void> updateStatutDossier(
+      Dossier dossier,
+      Statut statut,
+      String utilisateur,
+      String sigle,
+      String observation,
+      DateTime date) async {
+    // Créez l'historique
+    Historique historique =
+        dossier.generateHistory(utilisateur, sigle, observation, date, statut);
+    await saveHistorique(historique);
+    dossier.statut = statut;
+    await updateDossier(dossier);
   }
 
   //Read All Dossiers

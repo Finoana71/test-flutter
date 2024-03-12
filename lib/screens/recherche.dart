@@ -41,16 +41,16 @@ class _RecherchePageState extends State<RecherchePage> {
     dossierService.readAllDossiers(query).then((value) {
       setState(() {
         listeDossiers = value;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: new Text('Success'),
-            backgroundColor: Colors.green,
-            duration: const Duration(milliseconds: 1500000)));
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: new Text('Success'),
+        //     backgroundColor: Colors.green,
+        //     duration: const Duration(milliseconds: 1500000)));
       });
     }).catchError((err) => {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: new Text('Erreur, $err'),
               backgroundColor: Colors.redAccent,
-              duration: const Duration(milliseconds: 1500000)))
+              duration: const Duration(milliseconds: 2000)))
         });
   }
   // Future<void> _loadDossiers() async {
