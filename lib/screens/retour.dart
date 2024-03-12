@@ -60,12 +60,19 @@ class _RetourPageState extends State<RetourPage> {
               itemCount: listeDossiers.length,
               itemBuilder: (context, index) {
                 Dossier dossier = listeDossiers[index];
-                return ListCard(dossier: dossier);
+                return ListCard(
+                    dossier: dossier, index: index, onDelete: deleteDossier);
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  void deleteDossier(int index) {
+    setState(() {
+      listeDossiers.removeAt(index);
+    });
   }
 }

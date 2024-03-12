@@ -69,8 +69,13 @@ class DossierService {
     return (await _repository.updateData(dossier.toMap()))!;
   }
 
-  Future<int> deleteDossier(int dossierId) async {
-    return (await _repository.deleteDataById(dossierId))!;
+  Future<void> deleteDossier(int dossierId) async {
+    String whereDossier = 'id = ?';
+    String whereHistorique = 'idDossier = ?';
+    List whereArgs = [dossierId];
+    await _repository.deleteData(whereHistorique, whereArgs, tableHistorique);
+    await _repository.deleteData(whereDossier, whereArgs, tableDossier);
+    // return (await _repository.deleteDataById(dossierId))!;
   }
 
   Future<List<Historique>> getHistoriqueDossiers(int idDossier) async {

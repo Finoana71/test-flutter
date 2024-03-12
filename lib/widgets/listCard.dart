@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/screens/detail.dart';
@@ -7,8 +9,12 @@ import 'package:gestiondossier/services/dossier_service.dart';
 
 class ListCard extends StatelessWidget {
   final Dossier dossier;
+  final int index; // Ajoutez cet attribut
+  final Function(int) onDelete; // Ajoutez cet attribut
 
-  ListCard({required this.dossier});
+  ListCard(
+      {required this.dossier, required this.index, required this.onDelete});
+
   DossierService dossierService = DossierService();
 
   @override
@@ -100,5 +106,50 @@ class ListCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void delete(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirmer la suppression"),
+            content: Text("Voulez-vous vraiment supprimer ce dossier ?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // Fermer la boîte de dialogue
+                },
+                child: Text("Annuler"),
+              ),
+              TextButton(
+                onPressed: () {
+                  dossierService
+                      .deleteDossier(dossier.id!)
+                      .then((value) => {onSuccessDelete(context)})
+                      .catchError((err) => {onErrorDelete(err, context)});
+                },
+                child: Text("Supprimer"),
+              ),
+            ],
+          );
+        });
+  }
+
+  void onSuccessDelete(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Dossier supprimé'),
+      backgroundColor: Colors.lightBlue,
+    ));
+    onDelete(index);
+    Navigator.pop(context); // Fermer la boîte de dialogue
+  }
+
+  void onErrorDelete(String err, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Erreur, $err'),
+      backgroundColor: Colors.red,
+    ));
+    onDelete(index);
   }
 }
