@@ -151,18 +151,25 @@ class _ArriveePageState extends State<ArriveePage> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: new Text('Erreur, $err'),
         backgroundColor: Colors.redAccent,
-        duration: const Duration(milliseconds: 1500000)));
+        duration: const Duration(milliseconds: 2000)));
   }
 
   onSuccess(value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: new Text("Arrivé"),
+      content: new Text("Dossier arrivée"),
       backgroundColor: Colors.green,
     ));
-
+    clear();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => new RecherchePage()),
     );
+  }
+
+  clear() {
+    _numeroController.text = "";
+    _utilisateurController.text = "";
+    _sigleController.text = "";
+    _observationController.text = "";
   }
 }

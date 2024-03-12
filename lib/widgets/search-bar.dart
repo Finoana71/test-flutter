@@ -13,6 +13,7 @@ class MySearchBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: TextField(
+        onChanged: onSearch,
         decoration: InputDecoration(
           hintText: 'Rechercher...',
           border: InputBorder.none,
