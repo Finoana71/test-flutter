@@ -118,7 +118,7 @@ class Dossier {
   Historique generateHistory(String utilisateur, String sigle,
       String observation, DateTime date, Statut statut) {
     return new Historique(
-        id: this.id,
+        idDossier: this.id,
         utilisateur: utilisateur,
         sigle: sigle,
         date: date,

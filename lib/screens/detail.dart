@@ -30,6 +30,11 @@ class _DetailDossierPageState extends State<DetailDossierPage> {
         .then((value) => {
               setState(() {
                 historiques = value;
+                int size = historiques.length;
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: new Text('Historiques $size'),
+                  backgroundColor: Colors.green,
+                ));
               })
             });
   }
