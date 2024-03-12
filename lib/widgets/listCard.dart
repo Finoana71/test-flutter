@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/screens/detail.dart';
@@ -97,6 +95,7 @@ class ListCard extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
+                  delete(context);
                   // Mettez ici la logique pour supprimer le dossier
                   // Par exemple, un appel à une fonction de service ou de gestion des données
                 },
