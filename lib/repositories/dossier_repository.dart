@@ -61,9 +61,9 @@ class DossierRepository {
         ?.update(table, data, where: 'id = ?', whereArgs: [data['id']]);
   }
 
-  Future<int?> deleteDataById(int dossierId) async {
+  Future<int?> deleteData(String where, List whereArgs, String? table) async {
     var connection = await database;
-    return await connection
-        ?.delete(table, where: 'id = ?', whereArgs: [dossierId]);
+    table = table ?? this.table;
+    return await connection?.delete(table, where: where, whereArgs: whereArgs);
   }
 }

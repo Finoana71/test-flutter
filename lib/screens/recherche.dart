@@ -53,6 +53,7 @@ class _RecherchePageState extends State<RecherchePage> {
               duration: const Duration(milliseconds: 2000)))
         });
   }
+
   // Future<void> _loadDossiers() async {
   //   List<Dossier> dossiers = await dossierService.getListDossiers();
   //   setState(() {
@@ -60,6 +61,11 @@ class _RecherchePageState extends State<RecherchePage> {
   //   });
   //   print("sss2");
   // }
+  void deleteDossier(int index) {
+    setState(() {
+      listeDossiers.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +90,8 @@ class _RecherchePageState extends State<RecherchePage> {
               itemCount: listeDossiers.length,
               itemBuilder: (context, index) {
                 Dossier dossier = listeDossiers[index];
-                return ListCard(dossier: dossier);
+                return ListCard(
+                    dossier: dossier, index: index, onDelete: deleteDossier);
               },
             ),
           ),

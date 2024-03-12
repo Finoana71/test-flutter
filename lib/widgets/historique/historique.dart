@@ -125,6 +125,19 @@ class HistoriqueCard extends StatelessWidget {
 
   HistoriqueCard({required this.historique});
 
+  TextStyle labelStyle() {
+    return TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  TextStyle contentStyle() {
+    return TextStyle(
+      fontSize: 16,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -134,43 +147,74 @@ class HistoriqueCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Date : ${historique.date?.toLocal().toString().split(' ')[0]}",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Text(
+                  "Date :",
+                  style: labelStyle(),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "${historique.date?.toLocal().toString().split(' ')[0]}",
+                  style: contentStyle(),
+                ),
+              ],
             ),
             SizedBox(height: 8),
-            Text(
-              "Utilisateur : ${historique.utilisateur}",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Text(
+                  "Utilisateur :",
+                  style: labelStyle(),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "${historique.utilisateur}",
+                  style: contentStyle(),
+                ),
+              ],
             ),
             SizedBox(height: 8),
-            Text(
-              "Description : ${historique.getDescription()}",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Text(
+                  "Description :",
+                  style: labelStyle(),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "${historique.getDescription()}",
+                  style: contentStyle(),
+                ),
+              ],
             ),
             SizedBox(height: 8),
-            Text(
-              "Sigle : ${historique.sigle}",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Text(
+                  "Sigle :",
+                  style: labelStyle(),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "${historique.sigle}",
+                  style: contentStyle(),
+                ),
+              ],
             ),
             SizedBox(height: 8),
-            Text(
-              "Observation : ${historique.observation}",
-              style: TextStyle(
-                fontSize: 16,
-              ),
+            Row(
+              children: [
+                Text(
+                  "Observation :",
+                  style: labelStyle(),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "${historique.observation}",
+                  style: contentStyle(),
+                ),
+              ],
             ),
           ],
         ),
