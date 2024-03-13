@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:gestiondossier/repositories/dossier_repository.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -53,6 +54,7 @@ class DatabaseService {
       if (await importFile.exists()) {
         // Remplacer la base de données d'origine par le fichier importé
         await importFile.copy(dbPath);
+        DossierRepository.removeDatabase();
       } else {
         throw Exception("Le fichier d'importation n'existe pas.");
       }

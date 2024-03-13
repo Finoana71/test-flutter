@@ -12,6 +12,11 @@ class DossierRepository {
 
   String table = "dossiers";
 
+  static void removeDatabase() {
+    _database?.close();
+    _database = null;
+  }
+
   Future<Database?> get database async {
     if (_database != null) {
       return _database;
