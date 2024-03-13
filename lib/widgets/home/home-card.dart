@@ -10,6 +10,7 @@ import 'package:gestiondossier/widgets/home/home-button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 class HomeCard extends StatelessWidget {
   @override
@@ -103,14 +104,16 @@ class HomeCard extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.cloud_download),
                   onPressed: () async {
-                    await DatabaseService.exportDatabase(context);
+                    await _exportDatabase(context);
                     // Ajoutez la logique nécessaire pour le bouton ici
                   },
                 ),
                 // Bouton "Import" (Upload)
                 IconButton(
                   icon: Icon(Icons.cloud_upload),
-                  onPressed: () {
+                  onPressed: () async {
+                    await _importDatabase(context);
+
                     // Ajoutez la logique nécessaire pour le bouton ici
                   },
                 ),
@@ -119,6 +122,77 @@ class HomeCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _exportDatabase(BuildContext context) async {
+    try {
+      if (!await FlutterFileDialog.isPickDirectorySupported()) {
+        print("Picking directory not supported");
+        return;
+      }
+
+      File dbFile = await DatabaseService.getDbFile();
+      final pickedDirectory = await FlutterFileDialog.pickDirectory();
+
+      if (pickedDirectory != null) {
+        final filePath = await FlutterFileDialog.saveFileToDirectory(
+          directory: pickedDirectory!,
+          data: dbFile.readAsBytesSync(),
+          fileName: "data_dossier.db",
+          replace: true,
+        );
+      }
+
+      _showDialog('Export réussi',
+          'La base de données a été exportée avec succès.', context);
+    } catch (e) {
+      _showDialog(
+          'Erreur d\'export',
+          'Une erreur est survenue lors de l\'exportation de la base de données : $e',
+          context);
+    }
+  }
+
+  Future<void> _importDatabase(BuildContext context) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+      );
+
+      if (result != null) {
+        File selectedFile = File(result.files.single.path!);
+
+        // Utilisez le fichier sélectionné comme vous le souhaitez
+        await DatabaseService.importerDatabase(selectedFile);
+        _showDialog('Import réussi',
+            'La base de données a été importée avec succès.', context);
+      }
+    } catch (e) {
+      _showDialog(
+          'Erreur d\'import',
+          'Une erreur est survenue lors de l\'importation de la base de données : $e',
+          context);
+    }
+  }
+
+  void _showDialog(String title, String content, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
