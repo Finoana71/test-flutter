@@ -96,8 +96,6 @@ class ListCard extends StatelessWidget {
                 icon: Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
                   delete(context);
-                  // Mettez ici la logique pour supprimer le dossier
-                  // Par exemple, un appel à une fonction de service ou de gestion des données
                 },
               ),
             ],
