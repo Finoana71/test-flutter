@@ -12,8 +12,8 @@ class DossierRepository {
 
   String table = "dossiers";
 
-  static void removeDatabase() {
-    _database?.close();
+  static Future<void> removeDatabase() async {
+    await _database?.close();
     _database = null;
   }
 
@@ -45,7 +45,8 @@ class DossierRepository {
   Future<List<Map<String, dynamic>>?> readAllData(
       String table, String where, List whereArgs) async {
     var connection = await database;
-    return await connection?.query(table, where: where, whereArgs: whereArgs);
+    return await connection?.query(table,
+        where: where, whereArgs: whereArgs, orderBy: "date DESC");
   }
 
   Future<List<Map<String, dynamic>>?> readDataById(int dossierId) async {

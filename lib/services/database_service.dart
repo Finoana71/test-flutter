@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:gestiondossier/repositories/dossier_repository.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
   static const String _dbName = 'db_dossiers';
@@ -46,15 +47,34 @@ class DatabaseService {
     }
   }
 
+  // static Future<void> importerDatabase(File importFile) async {
+  //   try {
+  //     Directory appDocDir = await getApplicationDocumentsDirectory();
+  //     String dbPath = join(appDocDir.path, _dbName);
+
+  //     if (await importFile.exists()) {
+  //       // Remplacer la base de données d'origine par le fichier importé
+  //       await importFile.copy(dbPath);
+  //       await DossierRepository.removeDatabase();
+  //     } else {
+  //       throw Exception("Le fichier d'importation n'existe pas.");
+  //     }
+  //   } catch (e) {
+  //     print("Erreur lors de l'importation de la base de données : $e");
+  //     throw e;
+  //   }
+  // }
   static Future<void> importerDatabase(File importFile) async {
     try {
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String dbPath = join(appDocDir.path, _dbName);
 
       if (await importFile.exists()) {
+        // Supprimer l'ancienne base de données s'il y en a une
+        await deleteDatabase(dbPath);
+
         // Remplacer la base de données d'origine par le fichier importé
         await importFile.copy(dbPath);
-        DossierRepository.removeDatabase();
       } else {
         throw Exception("Le fichier d'importation n'existe pas.");
       }

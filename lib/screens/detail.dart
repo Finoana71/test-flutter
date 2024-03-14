@@ -51,8 +51,10 @@ class _DetailDossierPageState extends State<DetailDossierPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  // Utilisation de Wrap pour gérer le débordement de texte
+                  spacing: 8.0,
+                  runSpacing: 8.0,
                   children: [
                     Text(
                       "Numéro : ${widget.dossier.numero}",

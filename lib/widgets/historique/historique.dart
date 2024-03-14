@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/historique.dart';
 
-const snackBar = SnackBar(
-  content: Text('Yay! A SnackBar!'),
-);
-
 class HistoriqueCard extends StatelessWidget {
   final Historique historique;
 
@@ -20,6 +16,7 @@ class HistoriqueCard extends StatelessWidget {
   TextStyle contentStyle() {
     return TextStyle(
       fontSize: 16,
+      overflow: TextOverflow.clip,
     );
   }
 
@@ -29,8 +26,9 @@ class HistoriqueCard extends StatelessWidget {
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: [
             Row(
               children: [
@@ -39,12 +37,9 @@ class HistoriqueCard extends StatelessWidget {
                   style: labelStyle(),
                 ),
                 SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.date?.toLocal().toString().split(' ')[0]}",
-                    style: contentStyle(),
-                  ),
+                Text(
+                  "${historique.date?.toLocal().toString().split(' ')[0]}",
+                  style: contentStyle(),
                 ),
               ],
             ),
@@ -56,12 +51,9 @@ class HistoriqueCard extends StatelessWidget {
                   style: labelStyle(),
                 ),
                 SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.utilisateur}",
-                    style: contentStyle(),
-                  ),
+                Text(
+                  "${historique.utilisateur}",
+                  style: contentStyle(),
                 ),
               ],
             ),
@@ -73,12 +65,9 @@ class HistoriqueCard extends StatelessWidget {
                   style: labelStyle(),
                 ),
                 SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.getDescription()}",
-                    style: contentStyle(),
-                  ),
+                Text(
+                  "${historique.getDescription()}",
+                  style: contentStyle(),
                 ),
               ],
             ),
@@ -90,29 +79,24 @@ class HistoriqueCard extends StatelessWidget {
                   style: labelStyle(),
                 ),
                 SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.sigle}",
-                    style: contentStyle(),
-                  ),
+                Text(
+                  "${historique.sigle}",
+                  style: contentStyle(),
                 ),
               ],
             ),
             SizedBox(height: 8),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Observation :",
                   style: labelStyle(),
                 ),
                 SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.observation}",
-                    style: contentStyle(),
-                  ),
+                Text(
+                  "${historique.observation}",
+                  style: contentStyle(),
                 ),
               ],
             ),

@@ -65,12 +65,18 @@ class ListCard extends StatelessWidget {
       child: Card(
         // Mise en forme de la carte selon vos besoins
         child: ListTile(
-          title: Text("Dossier ${dossier.numero}"),
+          title: Text(
+            "Dossier ${dossier.numero}",
+            style: TextStyle(fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+          ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "${dossier.utilisateur} - ${dossier.date?.toLocal().toLocal().toString().split(' ')[0]}"),
+                "${dossier.utilisateur} - ${dossier.date?.toLocal().toLocal().toString().split(' ')[0]}",
+                overflow: TextOverflow.ellipsis,
+              ),
               Chip(
                 label: Text(
                   "${dossier.getStatut()}",
@@ -81,7 +87,7 @@ class ListCard extends StatelessWidget {
               ),
             ],
           ),
-          trailing: Row(
+          trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton(
@@ -91,12 +97,15 @@ class ListCard extends StatelessWidget {
                   primary: buttonColor, // Définir la couleur du bouton
                 ),
               ),
-              SizedBox(width: 8), // Espacement entre les boutons
-              IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
+              SizedBox(height: 8), // Espacement entre les boutons
+              ElevatedButton(
                 onPressed: () {
                   delete(context);
                 },
+                child: Text("Supprimer"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // Définir la couleur du bouton
+                ),
               ),
             ],
           ),
