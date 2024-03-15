@@ -12,7 +12,14 @@ class DossierRepository {
 
   String table = "dossiers";
 
-  static Future<void> removeDatabase() async {
+  static Future<void> removeDatabase(String dbPath) async {
+    await _database?.close();
+    if (_database != null) await deleteDatabase(dbPath);
+    _database = null;
+  }
+
+  static Future<void> closeDatabase() async {
+    if (_database == null) return;
     await _database?.close();
     _database = null;
   }
@@ -34,6 +41,12 @@ class DossierRepository {
       data,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  static bool isDatabaseOpen() {
+    if (_database == null) return false;
+    // Vérifiez si la base de données est ouverte
+    return _database!.isOpen;
   }
 
   Future<List<Map<String, dynamic>>?> readData(

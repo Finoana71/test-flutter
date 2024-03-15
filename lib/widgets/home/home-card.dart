@@ -166,7 +166,6 @@ class HomeCard extends StatelessWidget {
       if (result != null) {
         File selectedFile = File(result.files.single.path!);
 
-        // Utilisez le fichier sélectionné comme vous le souhaitez
         await DatabaseService.importerDatabase(selectedFile);
         _showDialog('Import réussi',
             'La base de données a été importée avec succès.', context);
