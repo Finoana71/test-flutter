@@ -134,18 +134,21 @@ class HomeCard extends StatelessWidget {
 
       File dbFile = await DatabaseService.getDbFile();
       final pickedDirectory = await FlutterFileDialog.pickDirectory();
-
+      String fileName = "data_dossier.db";
       if (pickedDirectory != null) {
         final filePath = await FlutterFileDialog.saveFileToDirectory(
           directory: pickedDirectory!,
           data: dbFile.readAsBytesSync(),
-          fileName: "data_dossier.db",
+          fileName: fileName,
+          mimeType: "*/*",
           replace: true,
         );
       }
 
-      _showDialog('Export réussi',
-          'La base de données a été exportée avec succès.', context);
+      _showDialog(
+          'Export réussi',
+          'La base de données a été exportée avec succès sous le fichier $fileName',
+          context);
     } catch (e) {
       _showDialog(
           'Erreur d\'export',
@@ -163,7 +166,6 @@ class HomeCard extends StatelessWidget {
       if (result != null) {
         File selectedFile = File(result.files.single.path!);
 
-        // Utilisez le fichier sélectionné comme vous le souhaitez
         await DatabaseService.importerDatabase(selectedFile);
         _showDialog('Import réussi',
             'La base de données a été importée avec succès.', context);

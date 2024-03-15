@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/historique.dart';
 
-const snackBar = SnackBar(
-  content: Text('Yay! A SnackBar!'),
-);
-
 class HistoriqueCard extends StatelessWidget {
   final Historique historique;
 
@@ -29,93 +25,91 @@ class HistoriqueCard extends StatelessWidget {
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: [
-            Row(
-              children: [
-                Text(
-                  "Date :",
-                  style: labelStyle(),
-                ),
-                SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.date?.toLocal().toString().split(' ')[0]}",
-                    style: contentStyle(),
+            Column(children: [
+              Row(
+                children: [
+                  Text(
+                    "Date :",
+                    style: labelStyle(),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Text(
-                  "Utilisateur :",
-                  style: labelStyle(),
-                ),
-                SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${historique.date?.toLocal().toString().split(' ')[0]}",
+                      style: contentStyle(),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text(
+                    "Utilisateur :",
+                    style: labelStyle(),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text(
                     "${historique.utilisateur}",
                     style: contentStyle(),
+                  )),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text(
+                    "Description :",
+                    style: labelStyle(),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Text(
-                  "Description :",
-                  style: labelStyle(),
-                ),
-                SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.getDescription()}",
-                    style: contentStyle(),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${historique.getDescription()}",
+                      style: contentStyle(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Text(
-                  "Sigle :",
-                  style: labelStyle(),
-                ),
-                SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.sigle}",
-                    style: contentStyle(),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text(
+                    "Sigle :",
+                    style: labelStyle(),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Text(
-                  "Observation :",
-                  style: labelStyle(),
-                ),
-                SizedBox(width: 8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${historique.observation}",
-                    style: contentStyle(),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${historique.sigle}",
+                      style: contentStyle(),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Observation :",
+                    style: labelStyle(),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${historique.observation}",
+                      style: contentStyle(),
+                    ),
+                  ),
+                ],
+              ),
+            ])
           ],
         ),
       ),

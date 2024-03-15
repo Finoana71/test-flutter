@@ -12,6 +12,18 @@ class DossierRepository {
 
   String table = "dossiers";
 
+  static Future<void> removeDatabase(String dbPath) async {
+    await _database?.close();
+    if (_database != null) await deleteDatabase(dbPath);
+    _database = null;
+  }
+
+  static Future<void> closeDatabase() async {
+    if (_database == null) return;
+    await _database?.close();
+    _database = null;
+  }
+
   Future<Database?> get database async {
     if (_database != null) {
       return _database;
@@ -31,6 +43,12 @@ class DossierRepository {
     );
   }
 
+  static bool isDatabaseOpen() {
+    if (_database == null) return false;
+    // Vérifiez si la base de données est ouverte
+    return _database!.isOpen;
+  }
+
   Future<List<Map<String, dynamic>>?> readData(
       String search, String? where, List? whereArgs) async {
     var connection = await database;
@@ -40,7 +58,8 @@ class DossierRepository {
   Future<List<Map<String, dynamic>>?> readAllData(
       String table, String where, List whereArgs) async {
     var connection = await database;
-    return await connection?.query(table, where: where, whereArgs: whereArgs);
+    return await connection?.query(table,
+        where: where, whereArgs: whereArgs, orderBy: "date DESC");
   }
 
   Future<List<Map<String, dynamic>>?> readDataById(int dossierId) async {

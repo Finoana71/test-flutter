@@ -51,50 +51,65 @@ class _DetailDossierPageState extends State<DetailDossierPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  // Utilisation de Wrap pour gérer le débordement de texte
+                  spacing: 8.0,
+                  runSpacing: 8.0,
                   children: [
-                    Text(
-                      "Numéro : ${widget.dossier.numero}",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Utilisateur : ${widget.dossier.utilisateur}",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Sigle : ${widget.dossier.sigle}",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Date d'arrivée: ${widget.dossier.date!.toLocal().toString().split(' ')[0]}",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Chip(
-                      label: Text(
-                        "${widget.dossier.getStatut()}",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: widget.dossierService
-                          .getColorForStatut(widget.dossier.statut),
-                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Numéro : ${widget.dossier.numero}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Utilisateur : ${widget.dossier.utilisateur}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Sigle : ${widget.dossier.sigle}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Date d'arrivée: ${widget.dossier.date!.toLocal().toString().split(' ')[0]}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Observation : ${widget.dossier.observation}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Chip(
+                          label: Text(
+                            "${widget.dossier.getStatut()}",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: widget.dossierService
+                              .getColorForStatut(widget.dossier.statut),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

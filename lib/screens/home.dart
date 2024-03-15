@@ -9,19 +9,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.snackbar('Success', 'the user has been created successfully.');
-
-    return Column(
-      children: [
-        Center(
-          child: Image(
-            image: AssetImage('assets/logo01.png'),
-          ),
+    // Get.snackbar('Success', 'the user has been created successfully.');
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Image(
+                image: AssetImage('assets/logo01.png'),
+              ),
+            ),
+            HomeCard(),
+          ],
         ),
-        Expanded(
-          child: HomeCard(),
-        ),
-      ],
+      ),
     );
   }
 }
