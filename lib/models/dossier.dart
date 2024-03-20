@@ -125,4 +125,8 @@ class Dossier {
         statut: statut,
         observation: observation);
   }
+
+  List<Historique> getHistoriquesByStatut(Statut statut) {
+    return historiques.where((element) => element.statut == statut).toList();
+  }
 }

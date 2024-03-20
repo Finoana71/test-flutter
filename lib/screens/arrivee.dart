@@ -156,7 +156,7 @@ class _ArriveePageState extends State<ArriveePage> {
 
   onSuccess(value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: new Text("Dossier arrivée"),
+      content: new Text("Dossier arrivé"),
       backgroundColor: Colors.green,
     ));
     clear();
