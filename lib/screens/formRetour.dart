@@ -150,7 +150,7 @@ class _FormRetourPageState extends State<FormRetourPage> {
 
   onSuccess(value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: new Text("Dossier rendu"),
+      content: new Text("Dossier retourné"),
       backgroundColor: Colors.green,
     ));
     clear();

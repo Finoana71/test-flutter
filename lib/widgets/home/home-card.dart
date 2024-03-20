@@ -1,8 +1,10 @@
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/screens/arrivee.dart';
 import 'package:gestiondossier/screens/prise.dart';
+import 'package:gestiondossier/screens/recap.dart';
 import 'package:gestiondossier/screens/recherche.dart';
 import 'package:gestiondossier/screens/retour.dart';
 import 'package:gestiondossier/services/database_service.dart';
@@ -87,6 +89,21 @@ class HomeCard extends StatelessWidget {
                           text: 'Retour',
                           icon: Icons.description,
                           pageInstance: RetourPage(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      height: 32.0), // Espacement entre les lignes de boutons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: HomeButton(
+                          color: Colors.blueGrey,
+                          text: 'Récaputilatif',
+                          icon: Icons.dashboard,
+                          pageInstance: RecapPage(),
                         ),
                       ),
                     ],
