@@ -5,65 +5,62 @@ import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/models/historique.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 class PdfService {
   Future<Uint8List> generatePdfBytes(List<pw.TableRow> tableRows) async {
-    // Create a PDF document
     final pdf = pw.Document();
 
-    // Add content to the PDF
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         build: (pw.Context context) {
-          return pw.Container(
-            padding: pw.EdgeInsets.all(16.0),
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                // Titre
-                pw.Text(
-                  "Tableau récapitulatif",
-                  style: pw.TextStyle(
-                    fontSize: 20,
-                    fontWeight: pw.FontWeight.bold,
-                    decoration: pw.TextDecoration.underline,
-                  ),
-                ),
-                pw.SizedBox(
-                    height: 20), // Espacement entre le titre et la table
-                // Table
-                pw.Table(
-                  border: pw.TableBorder.all(),
-                  children: [
-                    pw.TableRow(
-                      children: [
-                        pw.Text("Dossier",
-                            style:
-                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Arrivée",
-                            style:
-                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Prises",
-                            style:
-                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Retours",
-                            style:
-                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                      ],
+          return [
+            pw.Container(
+              padding: pw.EdgeInsets.all(16.0),
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    "Tableau récapitulatif",
+                    style: pw.TextStyle(
+                      fontSize: 20,
+                      fontWeight: pw.FontWeight.bold,
+                      decoration: pw.TextDecoration.underline,
                     ),
-                    ...tableRows
-                  ],
-                ),
-              ],
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Table(
+                    border: pw.TableBorder.all(),
+                    children: [
+                      pw.TableRow(
+                        children: [
+                          pw.Text("Dossier",
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                          pw.Text("Arrivée",
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                          pw.Text("Prises",
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                          pw.Text("Retours",
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        ],
+                      ),
+                      ...tableRows
+                    ],
+                  ),
+                ],
+              ),
             ),
-          );
+          ];
         },
       ),
     );
 
-    // Save the PDF as bytes
     return pdf.save();
   }
 
