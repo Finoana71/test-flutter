@@ -19,7 +19,7 @@ class ListHistoriqueRecap extends StatelessWidget {
             children: [
               Text(
                 DateFormat('dd-MM-yyyy').format(historique.date!),
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               Text(
                 'par ${historique.utilisateur}',
