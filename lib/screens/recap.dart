@@ -42,7 +42,7 @@ class _RecapPageState extends State<RecapPage> {
       // Export to PDF
       final file = await _pdfService.exportToPdf(dossiers: dossiers);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: new Text("Fichier exporté"),
+        content: new Text("Fichier exporté sous tableau_recaputilatif.pdf"),
         backgroundColor: Colors.green,
       ));
     } catch (e) {

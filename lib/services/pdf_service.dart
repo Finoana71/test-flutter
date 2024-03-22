@@ -9,10 +9,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 class PdfService {
-  Future<void> exportToPdf({required List<Dossier> dossiers}) async {
-    // Create table rows
-    final List<pw.TableRow> tableRows = _generateTableRows(dossiers);
-
+  Future<Uint8List> generatePdfBytes(List<pw.TableRow> tableRows) async {
     // Create a PDF document
     final pdf = pw.Document();
 
@@ -20,15 +17,62 @@ class PdfService {
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-          return pw.Table(
-            children: tableRows,
+          return pw.Container(
+            padding: pw.EdgeInsets.all(16.0),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                // Titre
+                pw.Text(
+                  "Tableau récapitulatif",
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                    decoration: pw.TextDecoration.underline,
+                  ),
+                ),
+                pw.SizedBox(
+                    height: 20), // Espacement entre le titre et la table
+                // Table
+                pw.Table(
+                  border: pw.TableBorder.all(),
+                  children: [
+                    pw.TableRow(
+                      children: [
+                        pw.Text("Dossier",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.Text("Arrivée",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.Text("Prises",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.Text("Retours",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                      ],
+                    ),
+                    ...tableRows
+                  ],
+                ),
+              ],
+            ),
           );
         },
       ),
     );
 
-    // Save the PDF file
-    final Uint8List pdfBytes = await pdf.save();
+    // Save the PDF as bytes
+    return pdf.save();
+  }
+
+  Future<void> exportToPdf({required List<Dossier> dossiers}) async {
+    // Create table rows
+    final List<pw.TableRow> tableRows = _generateTableRows(dossiers);
+
+    // Generate PDF bytes
+    final Uint8List pdfBytes = await generatePdfBytes(tableRows);
 
     // Ask user for directory to save the PDF file
     final pickedDirectory = await FlutterFileDialog.pickDirectory();
@@ -70,13 +114,14 @@ class PdfService {
                 children: [
                   pw.Text(
                     DateFormat('dd-MM-yyyy').format(historique.date!),
-                    style: pw.TextStyle(fontSize: 14),
+                    style: pw.TextStyle(fontSize: 12),
                   ),
-                  pw.SizedBox(height: 4.0),
+                  pw.SizedBox(height: 3.0),
                   pw.Text(
                     'par ${historique.utilisateur}',
-                    style: pw.TextStyle(fontSize: 14),
+                    style: pw.TextStyle(fontSize: 10),
                   ),
+                  pw.SizedBox(height: 8.0),
                 ],
               );
             }).toList(),
