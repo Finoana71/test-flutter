@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gestiondossier/models/dossier.dart';
 import 'package:gestiondossier/models/historique.dart';
@@ -8,7 +9,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 class PdfService {
-  Future<File?> exportToPdf({required List<Dossier> dossiers}) async {
+  Future<void> exportToPdf({required List<Dossier> dossiers}) async {
     // Create table rows
     final List<pw.TableRow> tableRows = _generateTableRows(dossiers);
 
@@ -26,19 +27,21 @@ class PdfService {
       ),
     );
 
-    // Ask user for file name and location
-    final params = SaveFileDialogParams(sourceFilePath: null);
-    final path = await FlutterFileDialog.saveFile(params: params);
-
-    if (path == null) {
-      throw Exception('No file selected');
-    }
-
     // Save the PDF file
-    final file = File(path);
-    await file.writeAsBytes(await pdf.save());
+    final Uint8List pdfBytes = await pdf.save();
 
-    return file;
+    // Ask user for directory to save the PDF file
+    final pickedDirectory = await FlutterFileDialog.pickDirectory();
+    String fileName = "tableau_recaputilatif.pdf";
+    if (pickedDirectory != null) {
+      final filePath = await FlutterFileDialog.saveFileToDirectory(
+        directory: pickedDirectory,
+        data: pdfBytes,
+        fileName: fileName,
+        mimeType: "application/pdf",
+        replace: true,
+      );
+    }
   }
 
   List<pw.TableRow> _generateTableRows(List<Dossier> dossiers) {
