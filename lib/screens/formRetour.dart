@@ -48,6 +48,7 @@ class _FormRetourPageState extends State<FormRetourPage> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text(title),
         backgroundColor: Colors.black,
       ),

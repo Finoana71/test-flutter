@@ -41,6 +41,7 @@ class _RetourPageState extends State<RetourPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text(this.title),
         backgroundColor: Colors.black,
       ),

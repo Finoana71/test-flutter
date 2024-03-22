@@ -38,6 +38,7 @@ class _DetailDossierPageState extends State<DetailDossierPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text("Détail du Dossier ${widget.dossier.numero}"),
         backgroundColor: Colors.black,
       ),

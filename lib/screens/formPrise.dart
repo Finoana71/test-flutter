@@ -46,6 +46,7 @@ class _FormPrisePageState extends State<FormPrisePage> {
     String title = 'Prise dossier ${widget.dossier.numero}';
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text(title),
         backgroundColor: Colors.black,
       ),

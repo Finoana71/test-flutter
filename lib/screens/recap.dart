@@ -57,6 +57,7 @@ class _RecapPageState extends State<RecapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.white,
           title: Text("Tableau récapitulatif"),
           backgroundColor: Colors.black,
           actions: [

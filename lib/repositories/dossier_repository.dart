@@ -62,6 +62,12 @@ class DossierRepository {
         where: where, whereArgs: whereArgs, orderBy: "date DESC");
   }
 
+  Future<List<Map<String, dynamic>>?> readAllDataNoCondition(
+      String table) async {
+    var connection = await database;
+    return await connection?.query(table, orderBy: "date DESC");
+  }
+
   Future<List<Map<String, dynamic>>?> readDataById(int dossierId) async {
     var connection = await database;
     return await connection

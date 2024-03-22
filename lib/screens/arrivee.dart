@@ -43,6 +43,7 @@ class _ArriveePageState extends State<ArriveePage> {
     context2 = context;
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text('Arrivee'),
         backgroundColor: Colors.black,
       ),

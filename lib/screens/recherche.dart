@@ -71,6 +71,7 @@ class _RecherchePageState extends State<RecherchePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text('Recherche'),
         backgroundColor: Colors.black,
       ),
