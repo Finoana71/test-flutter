@@ -109,63 +109,65 @@ class DossierService {
     return dossiers;
   }
 
-  // Future<List<Dossier>> getAllDossiersWithHistoriques() async {
-  //   List<Dossier> dossiers = await getAllDossiers();
-  //   List<Historique> historiques = await getAllHistoriques();
-  //   for(Dossier dossier in dossiers){
-  //     dossier.historiques = historiques.where((element) => element.idDossier == dossier.id).toList();
-  //   }
-  //   return dossiers;
-  // }
-
   Future<List<Dossier>> getAllDossiersWithHistoriques() async {
-    List<Dossier> dossiers = [];
-    Dossier d1 = new Dossier(id: 1, numero: "00010", statut: Statut.Pris);
-    Dossier d2 = new Dossier(id: 1, numero: "00009", statut: Statut.Rendu);
-    Dossier d3 = new Dossier(id: 1, numero: "00008", statut: Statut.Arrive);
-    dossiers.add(d1);
-    dossiers.add(d2);
-    dossiers.add(d3);
-
-    Historique h1 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Arrive);
-    Historique h2 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Arrive);
-    Historique h3 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Arrive);
-    Historique h4 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Pris);
-    Historique h5 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Pris);
-    Historique h6 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Rendu);
-    Historique h7 = new Historique(
-        id: 1,
-        utilisateur: "Randrianarivelo Finoana Mandresy",
-        date: DateTime.now(),
-        statut: Statut.Rendu);
-
-    d1.historiques = [h1, h4, h6];
-    d2.historiques = [h2, h4, h6, h5];
-    d3.historiques = [h3];
+    List<Dossier> dossiers = await getAllDossiers();
+    List<Historique> historiques = await getAllHistoriques();
+    for (Dossier dossier in dossiers) {
+      dossier.historiques = historiques
+          .where((element) => element.idDossier == dossier.id)
+          .toList();
+    }
     return dossiers;
   }
+
+  // Future<List<Dossier>> getAllDossiersWithHistoriques() async {
+  //   List<Dossier> dossiers = [];
+  //   Dossier d1 = new Dossier(id: 1, numero: "00010", statut: Statut.Pris);
+  //   Dossier d2 = new Dossier(id: 1, numero: "00009", statut: Statut.Rendu);
+  //   Dossier d3 = new Dossier(id: 1, numero: "00008", statut: Statut.Arrive);
+  //   dossiers.add(d1);
+  //   dossiers.add(d2);
+  //   dossiers.add(d3);
+
+  //   Historique h1 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Arrive);
+  //   Historique h2 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Arrive);
+  //   Historique h3 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Arrive);
+  //   Historique h4 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Pris);
+  //   Historique h5 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Pris);
+  //   Historique h6 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Rendu);
+  //   Historique h7 = new Historique(
+  //       id: 1,
+  //       utilisateur: "Randrianarivelo Finoana Mandresy",
+  //       date: DateTime.now(),
+  //       statut: Statut.Rendu);
+
+  //   d1.historiques = [h1, h4, h6];
+  //   d2.historiques = [h2, h4, h6, h5];
+  //   d3.historiques = [h3];
+  //   return dossiers;
+  // }
 }
