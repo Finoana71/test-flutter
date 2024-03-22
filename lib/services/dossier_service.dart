@@ -99,12 +99,12 @@ class DossierService {
   }
 
   Future<List<Historique>> getAllHistoriques() async {
-    var data = await _repository.readAllData(tableHistorique, "", []);
+    var data = await _repository.readAllDataNoCondition(tableHistorique);
     return data!.map((e) => Historique.fromMap(e)).toList();
   }
 
   Future<List<Dossier>> getAllDossiers() async {
-    var data = await _repository.readAllData(tableDossier, "", []);
+    var data = await _repository.readAllDataNoCondition(tableDossier);
     List<Dossier> dossiers = data!.map((e) => Dossier.fromMap(e)).toList();
     return dossiers;
   }
