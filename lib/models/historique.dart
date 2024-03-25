@@ -52,4 +52,19 @@ class Historique {
   }
 
   String toJson() => json.encode(toMap());
+  factory Historique.fromJson(String json) =>
+      Historique.fromMap(jsonDecode(json));
+
+  static String historiquesListToJson(List<Historique> historiques) {
+    List<Map<String, dynamic>> historiquesMapList =
+        historiques.map((historique) => historique.toMap()).toList();
+    return json.encode(historiquesMapList);
+  }
+
+  static List<Historique> historiquesListFromJson(String json) {
+    List<dynamic> historiquesMapList = jsonDecode(json);
+    return historiquesMapList
+        .map((historiqueMap) => Historique.fromMap(historiqueMap))
+        .toList();
+  }
 }

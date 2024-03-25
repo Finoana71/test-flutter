@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gestiondossier/screens/arrivee.dart';
 import 'package:gestiondossier/screens/prise.dart';
 import 'package:gestiondossier/screens/recap.dart';
@@ -149,13 +150,14 @@ class HomeCard extends StatelessWidget {
         return;
       }
 
-      File dbFile = await DatabaseService.getDbFile();
+      Uint8List file = await DatabaseService.exportDatabase();
+      // File dbFile = await DatabaseService.getDbFile();
       final pickedDirectory = await FlutterFileDialog.pickDirectory();
-      String fileName = "data_dossier.db";
+      String fileName = "data_dossier.json";
       if (pickedDirectory != null) {
         final filePath = await FlutterFileDialog.saveFileToDirectory(
           directory: pickedDirectory!,
-          data: dbFile.readAsBytesSync(),
+          data: file,
           fileName: fileName,
           mimeType: "*/*",
           replace: true,
@@ -183,7 +185,7 @@ class HomeCard extends StatelessWidget {
       if (result != null) {
         File selectedFile = File(result.files.single.path!);
 
-        await DatabaseService.importerDatabase(selectedFile);
+        await DatabaseService.importDatabase(selectedFile);
         _showDialog('Import réussi',
             'La base de données a été importée avec succès.', context);
       }

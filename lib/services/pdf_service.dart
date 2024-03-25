@@ -17,45 +17,44 @@ class PdfService {
       pw.MultiPage(
         build: (pw.Context context) {
           return [
-            pw.Container(
-              padding: pw.EdgeInsets.all(16.0),
-              child: pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  pw.Text(
-                    "Tableau récapitulatif",
-                    style: pw.TextStyle(
-                      fontSize: 20,
-                      fontWeight: pw.FontWeight.bold,
-                      decoration: pw.TextDecoration.underline,
-                    ),
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(
+                  "Tableau récapitulatif",
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                    decoration: pw.TextDecoration.underline,
                   ),
-                  pw.SizedBox(height: 20),
-                  pw.Table(
-                    border: pw.TableBorder.all(),
-                    children: [
-                      pw.TableRow(
-                        children: [
-                          pw.Text("Dossier",
-                              style:
-                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                          pw.Text("Arrivée",
-                              style:
-                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                          pw.Text("Prises",
-                              style:
-                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                          pw.Text("Retours",
-                              style:
-                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                        ],
-                      ),
-                      ...tableRows
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                pw.SizedBox(height: 20),
+              ],
             ),
+            pw.Table(
+              border: pw.TableBorder.all(),
+              columnWidths: {
+                0: pw.FractionColumnWidth(0.2),
+                1: pw.FractionColumnWidth(0.26),
+                2: pw.FractionColumnWidth(0.27),
+                3: pw.FractionColumnWidth(0.27),
+              },
+              children: [
+                pw.TableRow(
+                  children: [
+                    pw.Text("Dossier",
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                    pw.Text("Arrivée",
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                    pw.Text("Prises",
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                    pw.Text("Retours",
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                  ],
+                ),
+                ...tableRows
+              ],
+            )
           ];
         },
       ),
