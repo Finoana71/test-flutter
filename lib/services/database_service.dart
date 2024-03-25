@@ -41,10 +41,9 @@ class DatabaseService {
       List<Dossier> dossiersWithHistoriques =
           await dossierService.getAllDossiersWithHistoriques();
       // Convertir les dossiers avec les historiques en un format JSON
-      List<String> data = [];
-      for (Dossier dossier in dossiersWithHistoriques) {
-        data.add(dossier.toJson());
-      }
+      List<Map<String, dynamic>> data = dossiersWithHistoriques
+          .map((dossier) => dossier.toMapWithHistories())
+          .toList();
 
       String jsonData = jsonEncode(data);
       // Convertir la chaîne JSON en bytes
@@ -84,7 +83,6 @@ class DatabaseService {
     try {
       DossierService dossierService = new DossierService();
       String jsonData = await importFile.readAsString();
-      throw new Exception(jsonData);
       List<dynamic> data = jsonDecode(jsonData);
 
       for (dynamic item in data) {
@@ -92,9 +90,9 @@ class DatabaseService {
 
         int? dossierId = await _insertDossier(item, dossierService);
 
-        for (dynamic historiqueData in historiquesData) {
-          await _insertHistorique(historiqueData, dossierId!, dossierService);
-        }
+        // for (dynamic historiqueData in historiquesData) {
+        //   await _insertHistorique(historiqueData, dossierId!, dossierService);
+        // }
       }
     } catch (e) {
       print("Erreur lors de l'importation de la base de données : $e");
@@ -106,17 +104,23 @@ class DatabaseService {
       Map<String, dynamic> dossierData, DossierService dossierService) async {
     // Supprimer l'ID du dossier pour éviter les conflits
     dossierData.remove('id');
+    dossierData.remove('historiques');
+    dynamic numero = dossierData['numero'];
+    if (numero is int) {
+      dossierData['numero'] = numero.toString();
+    }
 
     // Vérifier si un dossier avec le même numéro existe déjà
     Dossier? existingDossier =
         await dossierService.getDossierByNumero(dossierData['numero']);
-    if (existingDossier != null) {
-      return existingDossier.id;
-    } else {
-      int newDossierId =
-          await dossierService.saveDossierSimple(Dossier.fromMap(dossierData));
-      return newDossierId;
-    }
+    // i<f (existingDossier != null) {
+    //   return existingDossier.id;
+    // } else {
+    //   int newDossierId =
+    //       await dossierService.saveDossierSimple(Dossier.fromMap(dossierData));
+    //   return newDossierId;
+    // }>
+    return 1;
   }
 
   static Future<void> _insertHistorique(Map<String, dynamic> historiqueData,
