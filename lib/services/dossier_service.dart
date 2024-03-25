@@ -11,6 +11,15 @@ class DossierService {
     _repository = DossierRepository();
   }
 
+  Future<Dossier?> getDossierByNumero(String numero) async {
+    var dossiers = await _repository.readDataByNumero(numero);
+    if (dossiers!.isEmpty) {
+      return null;
+    }
+    List<Dossier> list = dossiers!.map((e) => Dossier.fromMap(e)).toList();
+    list[0];
+  }
+
   //Save Dossier
   Future<int> saveDossier(Dossier dossier) async {
     var dossiers = await _repository.readDataByNumero(dossier.numero!);
@@ -25,6 +34,14 @@ class DossierService {
 
   Future<void> saveHistorique(Historique historique) async {
     (await _repository.insertData(historique.toMap(), tableHistorique))!;
+  }
+
+  Future<int> saveDossierSimple(Dossier dossier) async {
+    var dossiers = await _repository.readDataByNumero(dossier.numero!);
+    if (dossiers!.isNotEmpty) {
+      throw new Exception("Un dossier comportant ce numéro existe déjà");
+    }
+    return (await _repository.insertData(dossier.toMap(), null))!;
   }
 
   // Mise à jour statut dossier avec historique
@@ -118,6 +135,14 @@ class DossierService {
           .toList();
     }
     return dossiers;
+  }
+
+  Future<bool> checkHistoriqueExist(
+      String statut, String date, int idDossier) async {
+    String where = " idDossier = ? AND date = ? AND statut = ?";
+    List args = [idDossier, date, statut];
+    var resp = await _repository.readAllData(tableHistorique, where, args);
+    return resp!.isNotEmpty;
   }
 
   // Future<List<Dossier>> getAllDossiersWithHistoriques() async {
