@@ -38,6 +38,19 @@ class Dossier {
     };
   }
 
+  Map<String, dynamic> toMapWithHistories() {
+    return {
+      'id': id,
+      'numero': numero,
+      'utilisateur': utilisateur,
+      'sigle': sigle,
+      'date': date?.millisecondsSinceEpoch,
+      'observation': observation,
+      'statut': statut?.index,
+      'historiques': Historique.historiquesListToMap(historiques)
+    };
+  }
+
   String getStatut() {
     if (this.statut == Statut.Pris) return "Pris";
     if (this.statut == Statut.Rendu) return "Rendu";
@@ -65,7 +78,7 @@ class Dossier {
 
   factory Dossier.fromMap(Map<String, dynamic> map) {
     return Dossier(
-      id: map['id'],
+      id: map['id'] ?? null,
       numero: map['numero'],
       utilisateur: map['utilisateur'],
       sigle: map['sigle'],
@@ -77,7 +90,7 @@ class Dossier {
 
   String toJson() {
     Map<String, dynamic> map = toMap();
-    map["historiques"] = Historique.historiquesListToJson(historiques);
+    map["historiques"] = Historique.historiquesListToMap(historiques);
     return json.encode(map);
   }
 

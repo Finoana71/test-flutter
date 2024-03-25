@@ -61,6 +61,13 @@ class Historique {
     return json.encode(historiquesMapList);
   }
 
+  static List<Map<String, dynamic>> historiquesListToMap(
+      List<Historique> historiques) {
+    List<Map<String, dynamic>> historiquesMapList =
+        historiques.map((historique) => historique.toMap()).toList();
+    return historiquesMapList;
+  }
+
   static List<Historique> historiquesListFromJson(String json) {
     List<dynamic> historiquesMapList = jsonDecode(json);
     return historiquesMapList
