@@ -47,7 +47,7 @@ class Historique {
       sigle: map['sigle'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       observation: map['observation'],
-      statut: Statut.values[int.parse(map['statut'])],
+      statut: Statut.values[int.parse(map['statut'].toString())],
     );
   }
 

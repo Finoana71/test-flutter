@@ -90,9 +90,9 @@ class DatabaseService {
 
         int? dossierId = await _insertDossier(item, dossierService);
 
-        // for (dynamic historiqueData in historiquesData) {
-        //   await _insertHistorique(historiqueData, dossierId!, dossierService);
-        // }
+        for (dynamic historiqueData in historiquesData) {
+          await _insertHistorique(historiqueData, dossierId!, dossierService);
+        }
       }
     } catch (e) {
       print("Erreur lors de l'importation de la base de données : $e");
@@ -105,22 +105,17 @@ class DatabaseService {
     // Supprimer l'ID du dossier pour éviter les conflits
     dossierData.remove('id');
     dossierData.remove('historiques');
-    dynamic numero = dossierData['numero'];
-    if (numero is int) {
-      dossierData['numero'] = numero.toString();
-    }
 
     // Vérifier si un dossier avec le même numéro existe déjà
-    Dossier? existingDossier =
-        await dossierService.getDossierByNumero(dossierData['numero']);
-    // i<f (existingDossier != null) {
-    //   return existingDossier.id;
-    // } else {
-    //   int newDossierId =
-    //       await dossierService.saveDossierSimple(Dossier.fromMap(dossierData));
-    //   return newDossierId;
-    // }>
-    return 1;
+    Dossier? existingDossier = await dossierService
+        .getDossierByNumero(dossierData['numero'].toString());
+    if (existingDossier == null) {
+      int newDossierId =
+          await dossierService.saveDossierSimple(Dossier.fromMap(dossierData));
+      return newDossierId;
+    } else {
+      return existingDossier.id;
+    }
   }
 
   static Future<void> _insertHistorique(Map<String, dynamic> historiqueData,

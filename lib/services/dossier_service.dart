@@ -17,7 +17,7 @@ class DossierService {
       return null;
     }
     List<Dossier> list = dossiers!.map((e) => Dossier.fromMap(e)).toList();
-    list[0];
+    return list[0];
   }
 
   //Save Dossier
@@ -38,9 +38,6 @@ class DossierService {
 
   Future<int> saveDossierSimple(Dossier dossier) async {
     var dossiers = await _repository.readDataByNumero(dossier.numero!);
-    if (dossiers!.isNotEmpty) {
-      throw new Exception("Un dossier comportant ce numéro existe déjà");
-    }
     return (await _repository.insertData(dossier.toMap(), null))!;
   }
 

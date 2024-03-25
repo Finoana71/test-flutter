@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:gestiondossier/helpers/fields/dossier.dart';
 import 'package:gestiondossier/models/historique.dart';
 import 'dart:convert';
@@ -84,7 +82,7 @@ class Dossier {
       sigle: map['sigle'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       observation: map['observation'],
-      statut: Statut.values[int.parse(map['statut'])],
+      statut: Statut.values[int.parse(map['statut'].toString())],
     );
   }
 
